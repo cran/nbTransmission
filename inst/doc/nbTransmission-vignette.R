@@ -1,4 +1,4 @@
-## ---- include = FALSE---------------------------------------------------------
+## ----include = FALSE----------------------------------------------------------
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
@@ -162,7 +162,7 @@ rFinal <- estimateR(nbResults, dateVar = "infectionDate",
 ## ----rFinal2------------------------------------------------------------------
 rFinal$RtAvgDf
 
-## ---- fig.height = 3.5, fig.width = 6-----------------------------------------
+## ----fig.height = 3.5, fig.width = 6------------------------------------------
 plotRt(rFinal, includeRtAvg = TRUE, includeRtCI = TRUE, includeRtAvgCI = TRUE)
 
 ## ----probNoT, results = "hide"------------------------------------------------
