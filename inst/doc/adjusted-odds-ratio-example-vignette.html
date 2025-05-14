@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta name="author" content="Anne N. Shapiro" />
+
+<meta name="date" content="2025-05-14" />
+
+<title>Adjusted Odds Ratio Example</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Adjusted Odds Ratio Example</h1>
+<h4 class="author">Anne N. Shapiro</h4>
+<h4 class="date">2025-05-14</h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>This vignette will walk you through how to use the package
+nbTransmission to estimate adjusted odds ratios for factors associated
+with a variable representing transmission in an infectious disease
+outbreak. As transmission is not always observable, this variable may be
+a proxy for transmission, such as genetic relatedness or results from
+contact tracing, but we will refer to it henceforth as cases being
+‘linked’ or ‘transmission links.’</p>
+<p>This tutorial will focus on using the nbTransmission package to model
+odds ratios. If you are new to using the nbTransmission package, we
+recommend starting with the vignette “Introductory tutorial for R
+Package nbTransmission” (<a href="https://sarahleavitt.github.io/nbTransmission/articles/nbTransmission-vignette.html" class="uri">https://sarahleavitt.github.io/nbTransmission/articles/nbTransmission-vignette.html</a>).</p>
+<p>Start by installing nbTransmission if you have not already done so,
+and then load the package:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a>devtools<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&#39;sarahleavitt/nbTransmission&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">library</span>(nbTransmission)</span></code></pre></div>
+<p>Set your seed to match results in this tutorial:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">0</span>)</span></code></pre></div>
+<p>This package implements an algorithm that takes a dataset of ordered
+possible infector-infectee pairs from an infectious disease outbreak and
+estimates the relative probability the cases are linked by direct
+transmission using naive Bayes (NB) and the odds ratios of covariates
+associated with transmission.</p>
+<p>To estimate both quantities, we use an iterative estimation
+procedure. Because transmission is almost always unobserved, links are
+represent probable and not certain transmission events. In this setting,
+a given case could have multiple probable links when only one true link
+exists. The iterative procedure corrects for this by randomly choosing
+one link of all of the possible links to include in the training dataset
+multiple times. Multiple iterations allows each probable link a turn to
+represent the ‘true’ link. Within each iteration, we also run multiple
+cross validation folds to allow each pair in the training set an
+opportunity in the prediction dataset (this is more important in
+estimating relative probabilities). Final estimates of probabilities and
+odds ratios are the average of all estimates for a pair across the cross
+validation folds and iterations. For more details on the algorithm and
+NB, please see the previous vignette.</p>
+</div>
+<div id="using-nbtransmission-for-modeling" class="section level2">
+<h2>Using nbTransmission for modeling</h2>
+<p>A key assumption of NB is that all variables in the model are
+independent. Thus, when using nbTransmission to calculate transmission
+probabilities or unadjusted odds ratios, one can add as many variables
+as one would like into the model without having to worry about variable
+selection as in a regression model. However, we use a bootstrapped
+logisitic regression model to calculate adjusted odds ratios, meaning we
+do need to consider which variables we want in the model to avoid
+overfitting.</p>
+<p>Many methods exist for model fitting. In this tutorial, we present
+just one possible method. In short, we will first estimate unadjusted
+odds ratios for each variable, select the variables significant at the
+0.1 level, and then rerun the algorithm with the bootstrapped logistic
+regression model using just those variables.</p>
+</div>
+<div id="creating-a-dataset-of-pairs" class="section level2">
+<h2>Creating a Dataset of Pairs</h2>
+<p>First we need to create the dataset needed to run the iterative
+model. Creation of the pairwise dataset and descriptions of all
+covariates are covered in detail in the previous vignette.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co">#load individual level data</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">data</span>(pairData)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co">#create ordered pair level dataset</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>pairDataOrdered <span class="ot">&lt;-</span> pairData[pairData<span class="sc">$</span>infectionDate<span class="fl">.2</span> <span class="sc">&gt;=</span> pairData<span class="sc">$</span>infectionDate<span class="fl">.1</span>, ]</span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a><span class="co">#create SNP distances thresholds </span></span>
+<span id="cb4-8"><a href="#cb4-8" tabindex="-1"></a><span class="co">#SNP distances less than 3 are considered transmission links</span></span>
+<span id="cb4-9"><a href="#cb4-9" tabindex="-1"></a><span class="co">#SNP distances greater than 10 are non-transmission links</span></span>
+<span id="cb4-10"><a href="#cb4-10" tabindex="-1"></a><span class="co"># SNP distances 4-10 are considered indeterminate and only used in the prediction dataset</span></span>
+<span id="cb4-11"><a href="#cb4-11" tabindex="-1"></a>pairDataOrdered<span class="sc">$</span>snpClose <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(pairDataOrdered<span class="sc">$</span>snpDist <span class="sc">&lt;</span> <span class="dv">3</span>, <span class="cn">TRUE</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" tabindex="-1"></a>                                   <span class="fu">ifelse</span>(pairDataOrdered<span class="sc">$</span>snpDist <span class="sc">&gt;</span> <span class="dv">10</span>, <span class="cn">FALSE</span>, <span class="cn">NA</span>))</span></code></pre></div>
+</div>
+<div id="running-the-unadjusted-model" class="section level2">
+<h2>Running the unadjusted model</h2>
+<p>Now we can use the function nbTransmission to calculate unadjusted
+odds ratios.</p>
+<ul>
+<li><p><em>indVar</em> is the individual ID of the infector and
+infectee. The function looks for that value with the suffix “.1” and
+“.2” in the pair data frame (which would have been automatically created
+if you used indToPair to create the pair-level data frame).</p></li>
+<li><p><em>n</em> specifies the number of cross validation folds within
+each iteration.</p></li>
+<li><p><em>m</em> specifies the number of times to create the <em>n</em>
+cross validation folds within each iteration.</p></li>
+<li><p><em>nReps</em> specifies the number of iterations to
+run.</p></li>
+<li><p><em>orType</em> specifies the type of odds ratio to run. It takes
+values ‘univariate’ and ‘adjusted’.</p></li>
+</ul>
+<p>Recall that we run the <em>n</em> cross validation folds within each
+of the <em>nReps</em> iterations, therefore in total you run naive Bayes
+nReps * n * m times. <strong>In this tutorial, n and nReps = 5 for
+computation speed but both should be at least 10.</strong></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>unadjRes <span class="ot">&lt;-</span> <span class="fu">nbProbabilities</span>(<span class="at">orderedPair =</span> pairDataOrdered,</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>                            <span class="at">indIDVar =</span> <span class="st">&quot;individualID&quot;</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>                            <span class="at">pairIDVar =</span> <span class="st">&quot;pairID&quot;</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>                            <span class="at">goldStdVar =</span> <span class="st">&quot;snpClose&quot;</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>                            <span class="at">covariates =</span> <span class="fu">c</span>(<span class="st">&quot;Z1&quot;</span>, <span class="st">&quot;Z2&quot;</span>, <span class="st">&quot;Z3&quot;</span>, <span class="st">&quot;Z4&quot;</span>, <span class="st">&quot;timeCat&quot;</span>),</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>                            <span class="at">label =</span> <span class="st">&quot;SNPs&quot;</span>, <span class="at">l =</span> <span class="dv">1</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>                            <span class="at">n =</span> <span class="dv">5</span>, <span class="at">m =</span> <span class="dv">1</span>, <span class="at">nReps =</span> <span class="dv">5</span>, </span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>                            <span class="at">orType =</span> <span class="st">&quot;univariate&quot;</span>)</span></code></pre></div>
+<p>The results are a list with two data frames. The first contains the
+average and scaled relative transmission probabilities; we will not be
+using these in this tutorial. The second contains our unadjusted log
+odds ratios.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="fu">str</span>(unadjRes)</span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co">#&gt; List of 2</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="co">#&gt;  $ probabilities:&#39;data.frame&#39;:   4950 obs. of  7 variables:</span></span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="co">#&gt;   ..$ label     : chr [1:4950] &quot;SNPs&quot; &quot;SNPs&quot; &quot;SNPs&quot; &quot;SNPs&quot; ...</span></span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a><span class="co">#&gt;   ..$ pairID    : chr [1:4950] &quot;001_002&quot; &quot;022_003&quot; &quot;015_003&quot; &quot;020_003&quot; ...</span></span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="co">#&gt;   ..$ pAvg      : num [1:4950] 0.8207 0.0508 0.0385 0.0375 0.0339 ...</span></span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="co">#&gt;   ..$ pSD       : num [1:4950] 0.36614 0.00853 0.0141 0.01163 0.01049 ...</span></span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="co">#&gt;   ..$ pScaled   : num [1:4950] 1 0.161 0.122 0.119 0.107 ...</span></span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="co">#&gt;   ..$ pRank     : num [1:4950] 1 1 2 3 4 5 6 7 8 8 ...</span></span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="co">#&gt;   ..$ nEstimates: int [1:4950] 25 25 25 25 25 25 25 25 25 25 ...</span></span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="co">#&gt;  $ estimates    :&#39;data.frame&#39;:   17 obs. of  7 variables:</span></span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="co">#&gt;   ..$ label    : chr [1:17] &quot;SNPs&quot; &quot;SNPs&quot; &quot;SNPs&quot; &quot;SNPs&quot; ...</span></span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a><span class="co">#&gt;   ..$ level    : chr [1:17] &quot;Z1:0&quot; &quot;Z1:1&quot; &quot;Z2:0&quot; &quot;Z2:1&quot; ...</span></span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a><span class="co">#&gt;   ..$ nIter    : int [1:17] 25 25 25 25 25 25 25 25 25 25 ...</span></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a><span class="co">#&gt;   ..$ logorMean: num [1:17] 0 0.122 0 0.712 0 ...</span></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co">#&gt;   ..$ logorSE  : num [1:17] NaN 0.323 NaN 0.342 NaN ...</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a><span class="co">#&gt;   ..$ logorCILB: num [1:17] NaN -0.5114 NaN 0.0412 NaN ...</span></span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a><span class="co">#&gt;   ..$ logorCIUB: num [1:17] NaN 0.755 NaN 1.383 NaN ...</span></span></code></pre></div>
+</div>
+<div id="unadjusted-model-results" class="section level2">
+<h2>Unadjusted model results</h2>
+<p>The second data frame contains log odds ratios standard errors and
+95% confidence intervals describing the contribution of each covariate
+value to the probabilities. The log odds ratios represent the
+association between the covariates and being transmission links,
+modified by the iterative estimation procedure. The standard errors are
+estimated using Rubin’s rules, a method developed for multiple
+imputation, to summarize the error across the iterations. We can look at
+the output in table or graph form:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="co">#Exponentiating the log odds ratios and creating a table of odds ratios</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>orTab <span class="ot">&lt;-</span> unadjRes<span class="sc">$</span>estimates</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>orTab<span class="sc">$</span>orMean <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">exp</span>(orTab<span class="sc">$</span>logorMean), <span class="dv">2</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>orTab<span class="sc">$</span>orCILB <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">exp</span>(orTab<span class="sc">$</span>logorCILB), <span class="dv">2</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>orTab<span class="sc">$</span>orCIUB <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">exp</span>(orTab<span class="sc">$</span>logorCIUB), <span class="dv">2</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>orTab<span class="sc">$</span>Value <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;[A-z0-9]+</span><span class="sc">\\</span><span class="st">:&quot;</span>, <span class="st">&quot;&quot;</span>, orTab<span class="sc">$</span>level)</span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>orTab<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="fu">gsub</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">:[A-z0-9+-&lt;=&gt;]+&quot;</span>, <span class="st">&quot;&quot;</span>, orTab<span class="sc">$</span>level)</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>orTabPrint1 <span class="ot">&lt;-</span> orTab[, <span class="fu">c</span>(<span class="st">&quot;Variable&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;orMean&quot;</span>, <span class="st">&quot;orCILB&quot;</span>, <span class="st">&quot;orCIUB&quot;</span>)]</span></code></pre></div>
+<div id="table-of-contribution-of-covariates" class="section level4">
+<h4>Table of contribution of covariates</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Value</th>
+<th align="right">orMean</th>
+<th align="right">orCILB</th>
+<th align="right">orCIUB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Z1</td>
+<td align="left">0</td>
+<td align="right">1.00</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="even">
+<td align="left">Z1</td>
+<td align="left">1</td>
+<td align="right">1.13</td>
+<td align="right">0.60</td>
+<td align="right">2.13</td>
+</tr>
+<tr class="odd">
+<td align="left">Z2</td>
+<td align="left">0</td>
+<td align="right">1.00</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="even">
+<td align="left">Z2</td>
+<td align="left">1</td>
+<td align="right">2.04</td>
+<td align="right">1.04</td>
+<td align="right">3.99</td>
+</tr>
+<tr class="odd">
+<td align="left">Z3</td>
+<td align="left">1</td>
+<td align="right">1.00</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="even">
+<td align="left">Z3</td>
+<td align="left">2</td>
+<td align="right">1.24</td>
+<td align="right">0.54</td>
+<td align="right">2.85</td>
+</tr>
+<tr class="odd">
+<td align="left">Z3</td>
+<td align="left">3</td>
+<td align="right">1.07</td>
+<td align="right">0.50</td>
+<td align="right">2.29</td>
+</tr>
+<tr class="even">
+<td align="left">Z3</td>
+<td align="left">4</td>
+<td align="right">0.79</td>
+<td align="right">0.33</td>
+<td align="right">1.88</td>
+</tr>
+<tr class="odd">
+<td align="left">Z4</td>
+<td align="left">1</td>
+<td align="right">1.00</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="even">
+<td align="left">Z4</td>
+<td align="left">2</td>
+<td align="right">0.61</td>
+<td align="right">0.33</td>
+<td align="right">1.13</td>
+</tr>
+<tr class="odd">
+<td align="left">Z4</td>
+<td align="left">3</td>
+<td align="right">0.21</td>
+<td align="right">0.07</td>
+<td align="right">0.64</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat</td>
+<td align="left">1</td>
+<td align="right">1.00</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+</tr>
+<tr class="odd">
+<td align="left">timeCat</td>
+<td align="left">2</td>
+<td align="right">0.70</td>
+<td align="right">0.32</td>
+<td align="right">1.54</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat</td>
+<td align="left">3</td>
+<td align="right">0.51</td>
+<td align="right">0.19</td>
+<td align="right">1.40</td>
+</tr>
+<tr class="odd">
+<td align="left">timeCat</td>
+<td align="left">4</td>
+<td align="right">0.30</td>
+<td align="right">0.09</td>
+<td align="right">0.96</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat</td>
+<td align="left">5</td>
+<td align="right">0.12</td>
+<td align="right">0.02</td>
+<td align="right">0.76</td>
+</tr>
+<tr class="odd">
+<td align="left">timeCat</td>
+<td align="left">6</td>
+<td align="right">0.13</td>
+<td align="right">0.04</td>
+<td align="right">0.38</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="forest-plot-of-contribution-of-covariates" class="section level4">
+<h4>Forest plot of contribution of covariates</h4>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> orTab, <span class="fu">aes</span>(<span class="at">x =</span> Value, <span class="at">y =</span> orMean, <span class="at">ymin =</span> orCILB,</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                           <span class="at">ymax =</span> orCIUB)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>  <span class="fu">geom_errorbar</span>(<span class="at">width =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> <span class="dv">1</span>), <span class="at">linetype =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>Variable, <span class="at">scales =</span> <span class="st">&quot;free_y&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Odds ratio with 95% confidence interval&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.ticks.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>        <span class="at">axis.title.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>        <span class="at">strip.text.y =</span> <span class="fu">element_text</span>(<span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">1</span>, <span class="at">angle =</span> <span class="dv">360</span>),</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>),</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>        <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">margin =</span> <span class="fu">margin</span>(<span class="at">t =</span> <span class="dv">10</span>, <span class="at">r =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">0</span>, <span class="at">l =</span> <span class="dv">0</span>)),</span>
+<span id="cb8-15"><a href="#cb8-15" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">&quot;bottom&quot;</span>) <span class="sc">+</span></span>
+<span id="cb8-16"><a href="#cb8-16" tabindex="-1"></a>  <span class="fu">scale_y_log10</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="fl">0.01</span>, <span class="fl">0.1</span>, <span class="dv">1</span>, <span class="dv">10</span>)) <span class="sc">+</span></span>
+<span id="cb8-17"><a href="#cb8-17" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+</div>
+<div id="identifying-significant-variables-for-the-adjusted-model" class="section level2">
+<h2>Identifying significant variables for the adjusted model</h2>
+<p>Note that the confidence intervals generated by nbProbabilities are
+95% confidence intervals, meaning the odds ratio is statistically
+significant at the 0.05 level if it does not contain 1. We want to
+identify odds ratios statistically significant at the 0.10 level for
+model selection, so we need to generate 90% confidence intervals. 1.645
+is the z-score corresponding to 90% confidence intervals; you can change
+this to calculate confidence intervals for whatever value you’d
+like.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a>orTab<span class="sc">$</span>logor90CILB <span class="ot">&lt;-</span> orTab<span class="sc">$</span>logorMean <span class="sc">-</span> <span class="fl">1.645</span><span class="sc">*</span>orTab<span class="sc">$</span>logorSE</span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a>orTab<span class="sc">$</span>logor90CIUB <span class="ot">&lt;-</span> orTab<span class="sc">$</span>logorMean <span class="sc">+</span> <span class="fl">1.645</span><span class="sc">*</span>orTab<span class="sc">$</span>logorSE</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a>orTab<span class="sc">$</span>or90CILB <span class="ot">&lt;-</span> <span class="fu">exp</span>(orTab<span class="sc">$</span>logor90CILB)</span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a>orTab<span class="sc">$</span>or90CIUB <span class="ot">&lt;-</span> <span class="fu">exp</span>(orTab<span class="sc">$</span>logor90CIUB)</span></code></pre></div>
+<p>We can create an indicator for which associations are significant at
+the 0.1 level. We see variables Z2, Z4, and timeCat have significant
+associations. We will include these three variables in our adjusted
+model.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a>orTab<span class="sc">$</span>sig90pctCI <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(orTab<span class="sc">$</span>or90CILB <span class="sc">&lt;</span> <span class="dv">1</span> <span class="sc">&amp;</span> orTab<span class="sc">$</span>or90CIUB <span class="sc">&gt;</span> <span class="dv">1</span>, <span class="st">&quot;Not significant&quot;</span>, <span class="st">&quot;Significant&quot;</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>orTabPrint2 <span class="ot">&lt;-</span> orTab[, <span class="fu">c</span>(<span class="st">&quot;Variable&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;orMean&quot;</span>, <span class="st">&quot;or90CILB&quot;</span>, <span class="st">&quot;or90CIUB&quot;</span>, <span class="st">&quot;sig90pctCI&quot;</span>)]</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Value</th>
+<th align="right">orMean</th>
+<th align="right">or90CILB</th>
+<th align="right">or90CIUB</th>
+<th align="left">sig90pctCI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Z1</td>
+<td align="left">0</td>
+<td align="right">1.00</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Z1</td>
+<td align="left">1</td>
+<td align="right">1.13</td>
+<td align="right">0.6638778</td>
+<td align="right">1.9215158</td>
+<td align="left">Not significant</td>
+</tr>
+<tr class="odd">
+<td align="left">Z2</td>
+<td align="left">0</td>
+<td align="right">1.00</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Z2</td>
+<td align="left">1</td>
+<td align="right">2.04</td>
+<td align="right">1.1607575</td>
+<td align="right">3.5807363</td>
+<td align="left">Significant</td>
+</tr>
+<tr class="odd">
+<td align="left">Z3</td>
+<td align="left">1</td>
+<td align="right">1.00</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Z3</td>
+<td align="left">2</td>
+<td align="right">1.24</td>
+<td align="right">0.6182017</td>
+<td align="right">2.4900323</td>
+<td align="left">Not significant</td>
+</tr>
+<tr class="odd">
+<td align="left">Z3</td>
+<td align="left">3</td>
+<td align="right">1.07</td>
+<td align="right">0.5623750</td>
+<td align="right">2.0241972</td>
+<td align="left">Not significant</td>
+</tr>
+<tr class="even">
+<td align="left">Z3</td>
+<td align="left">4</td>
+<td align="right">0.79</td>
+<td align="right">0.3797575</td>
+<td align="right">1.6376455</td>
+<td align="left">Not significant</td>
+</tr>
+<tr class="odd">
+<td align="left">Z4</td>
+<td align="left">1</td>
+<td align="right">1.00</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">Z4</td>
+<td align="left">2</td>
+<td align="right">0.61</td>
+<td align="right">0.3613764</td>
+<td align="right">1.0195813</td>
+<td align="left">Not significant</td>
+</tr>
+<tr class="odd">
+<td align="left">Z4</td>
+<td align="left">3</td>
+<td align="right">0.21</td>
+<td align="right">0.0853616</td>
+<td align="right">0.5404608</td>
+<td align="left">Significant</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat</td>
+<td align="left">1</td>
+<td align="right">1.00</td>
+<td align="right">NaN</td>
+<td align="right">NaN</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">timeCat</td>
+<td align="left">2</td>
+<td align="right">0.70</td>
+<td align="right">0.3616349</td>
+<td align="right">1.3558591</td>
+<td align="left">Not significant</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat</td>
+<td align="left">3</td>
+<td align="right">0.51</td>
+<td align="right">0.2208150</td>
+<td align="right">1.1901120</td>
+<td align="left">Not significant</td>
+</tr>
+<tr class="odd">
+<td align="left">timeCat</td>
+<td align="left">4</td>
+<td align="right">0.30</td>
+<td align="right">0.1115102</td>
+<td align="right">0.7948653</td>
+<td align="left">Significant</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat</td>
+<td align="left">5</td>
+<td align="right">0.12</td>
+<td align="right">0.0252413</td>
+<td align="right">0.5624551</td>
+<td align="left">Significant</td>
+</tr>
+<tr class="odd">
+<td align="left">timeCat</td>
+<td align="left">6</td>
+<td align="right">0.13</td>
+<td align="right">0.0525507</td>
+<td align="right">0.3190950</td>
+<td align="left">Significant</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="running-the-adjusted-model" class="section level2">
+<h2>Running the adjusted model</h2>
+<p>We again call nbProbabilities to run our adjusted model. Note two
+changes from the first time we ran this function:</p>
+<ul>
+<li>orType now is set to “adjusted”</li>
+<li>covariates only includes the variables we found to be significant at
+the 0.1 level</li>
+</ul>
+<p>We also now include the argument nBS to specify the number of
+bootstrap samples ran in each cross-validation fold. <strong>In this
+tutorial, nBS = 10 for computation speed but should be at least 100 in
+practice.</strong></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a>adjRes <span class="ot">&lt;-</span> <span class="fu">nbProbabilities</span>(<span class="at">orderedPair =</span> pairDataOrdered,</span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a>                            <span class="at">indIDVar =</span> <span class="st">&quot;individualID&quot;</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a>                            <span class="at">pairIDVar =</span> <span class="st">&quot;pairID&quot;</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a>                            <span class="at">goldStdVar =</span> <span class="st">&quot;snpClose&quot;</span>,</span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a>                            <span class="at">covariates =</span> <span class="fu">c</span>(<span class="st">&quot;Z2&quot;</span>, <span class="st">&quot;Z4&quot;</span>, <span class="st">&quot;timeCat&quot;</span>),</span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a>                            <span class="at">label =</span> <span class="st">&quot;SNPs&quot;</span>, <span class="at">l =</span> <span class="dv">1</span>,</span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a>                            <span class="at">n =</span> <span class="dv">5</span>, <span class="at">m =</span> <span class="dv">1</span>, <span class="at">nReps =</span> <span class="dv">5</span>, </span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a>                            <span class="at">orType =</span> <span class="st">&quot;adjusted&quot;</span>, <span class="at">nBS =</span> <span class="dv">10</span>)</span></code></pre></div>
+<p>We again can look at the output in table form.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" tabindex="-1"></a><span class="co">#Exponentiating the log odds ratios and creating a table of odds ratios</span></span>
+<span id="cb12-2"><a href="#cb12-2" tabindex="-1"></a>orTabAdj <span class="ot">&lt;-</span> adjRes<span class="sc">$</span>estimates</span>
+<span id="cb12-3"><a href="#cb12-3" tabindex="-1"></a>orTabAdj <span class="ot">&lt;-</span> orTabAdj[<span class="sc">-</span><span class="fu">c</span>(orTabAdj<span class="sc">$</span>level <span class="sc">==</span> <span class="st">&quot;(Intercept)&quot;</span>), ]</span>
+<span id="cb12-4"><a href="#cb12-4" tabindex="-1"></a>orTabAdj<span class="sc">$</span>orMean <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">exp</span>(orTabAdj<span class="sc">$</span>logorMean), <span class="dv">2</span>)</span>
+<span id="cb12-5"><a href="#cb12-5" tabindex="-1"></a>orTabAdj<span class="sc">$</span>orCILB <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">exp</span>(orTabAdj<span class="sc">$</span>logorCILB), <span class="dv">2</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" tabindex="-1"></a>orTabAdj<span class="sc">$</span>orCIUB <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">exp</span>(orTabAdj<span class="sc">$</span>logorCIUB), <span class="dv">2</span>)</span>
+<span id="cb12-7"><a href="#cb12-7" tabindex="-1"></a>orTabAdj<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="fu">substr</span>(orTabAdj<span class="sc">$</span>level, <span class="dv">1</span>, <span class="fu">nchar</span>(orTabAdj<span class="sc">$</span>level)<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" tabindex="-1"></a>orTabAdj<span class="sc">$</span>Value <span class="ot">&lt;-</span> <span class="fu">substr</span>(orTabAdj<span class="sc">$</span>level, <span class="fu">nchar</span>(orTabAdj<span class="sc">$</span>level), <span class="fu">nchar</span>(orTabAdj<span class="sc">$</span>level))</span>
+<span id="cb12-9"><a href="#cb12-9" tabindex="-1"></a>orTabAdjPrint <span class="ot">&lt;-</span> orTabAdj[, <span class="fu">c</span>(<span class="st">&quot;Variable&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;orMean&quot;</span>, <span class="st">&quot;orCILB&quot;</span>, <span class="st">&quot;orCIUB&quot;</span>)]</span></code></pre></div>
+<div id="table-of-contribution-of-covariates-1" class="section level4">
+<h4>Table of contribution of covariates</h4>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Value</th>
+<th align="right">orMean</th>
+<th align="right">orCILB</th>
+<th align="right">orCIUB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Z2</td>
+<td align="left">1</td>
+<td align="right">1.66</td>
+<td align="right">0.81</td>
+<td align="right">3.37</td>
+</tr>
+<tr class="even">
+<td align="left">Z4</td>
+<td align="left">2</td>
+<td align="right">0.60</td>
+<td align="right">0.29</td>
+<td align="right">1.26</td>
+</tr>
+<tr class="odd">
+<td align="left">Z4</td>
+<td align="left">3</td>
+<td align="right">0.11</td>
+<td align="right">0.00</td>
+<td align="right">17.27</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat</td>
+<td align="left">2</td>
+<td align="right">0.82</td>
+<td align="right">0.37</td>
+<td align="right">1.84</td>
+</tr>
+<tr class="odd">
+<td align="left">timeCat</td>
+<td align="left">3</td>
+<td align="right">0.37</td>
+<td align="right">0.01</td>
+<td align="right">9.54</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat</td>
+<td align="left">4</td>
+<td align="right">0.11</td>
+<td align="right">0.00</td>
+<td align="right">515.64</td>
+</tr>
+<tr class="odd">
+<td align="left">timeCat</td>
+<td align="left">5</td>
+<td align="right">0.00</td>
+<td align="right">0.00</td>
+<td align="right">220.31</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat</td>
+<td align="left">6</td>
+<td align="right">0.13</td>
+<td align="right">0.01</td>
+<td align="right">1.41</td>
+</tr>
+</tbody>
+</table>
+<p>The odds ratio describing the association between being a link and
+having a timeCat value of 5 (time between cases of 4-5 years) has a very
+large confidence interval upper bound. This is due to their being very
+few instances of transmission in this category, which leads to
+instability in the standard error calculation in the logistic
+regression.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a><span class="fu">table</span>(pairDataOrdered<span class="sc">$</span>timeCat, pairDataOrdered<span class="sc">$</span>snpClose)</span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a><span class="co">#&gt;    </span></span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a><span class="co">#&gt;     FALSE TRUE</span></span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a><span class="co">#&gt;   1   290   94</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a><span class="co">#&gt;   2   239   58</span></span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a><span class="co">#&gt;   3   215   37</span></span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a><span class="co">#&gt;   4   170   18</span></span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a><span class="co">#&gt;   5   146    6</span></span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a><span class="co">#&gt;   6   407   34</span></span></code></pre></div>
+<p>If this occurs, one may consider other categorizations such that
+these small sample sizes do not occur. Here, we can combine categories 5
+and 6 of timeCat:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" tabindex="-1"></a>pairDataOrdered<span class="sc">$</span>timeCat2 <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(<span class="fu">ifelse</span>(pairDataOrdered<span class="sc">$</span>timeCat <span class="sc">==</span> <span class="dv">6</span>, <span class="dv">5</span>, pairDataOrdered<span class="sc">$</span>timeCat ))</span></code></pre></div>
+<p>We can then rerun the model to see this issue has been fixed.</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a>adjRes2 <span class="ot">&lt;-</span> <span class="fu">nbProbabilities</span>(<span class="at">orderedPair =</span> pairDataOrdered,</span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>                            <span class="at">indIDVar =</span> <span class="st">&quot;individualID&quot;</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>                            <span class="at">pairIDVar =</span> <span class="st">&quot;pairID&quot;</span>,</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>                            <span class="at">goldStdVar =</span> <span class="st">&quot;snpClose&quot;</span>,</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>                            <span class="at">covariates =</span> <span class="fu">c</span>(<span class="st">&quot;Z2&quot;</span>, <span class="st">&quot;Z4&quot;</span>, <span class="st">&quot;timeCat2&quot;</span>),</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>                            <span class="at">label =</span> <span class="st">&quot;SNPs&quot;</span>, <span class="at">l =</span> <span class="dv">1</span>,</span>
+<span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>                            <span class="at">n =</span> <span class="dv">5</span>, <span class="at">m =</span> <span class="dv">1</span>, <span class="at">nReps =</span> <span class="dv">5</span>, </span>
+<span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>                            <span class="at">orType =</span> <span class="st">&quot;adjusted&quot;</span>, <span class="at">nBS =</span> <span class="dv">10</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" tabindex="-1"></a>orTabAdj2 <span class="ot">&lt;-</span> adjRes2<span class="sc">$</span>estimates</span>
+<span id="cb15-11"><a href="#cb15-11" tabindex="-1"></a>orTabAdj2 <span class="ot">&lt;-</span> orTabAdj2[<span class="sc">-</span><span class="fu">c</span>(orTabAdj2<span class="sc">$</span>level <span class="sc">==</span> <span class="st">&quot;(Intercept)&quot;</span>), ]</span>
+<span id="cb15-12"><a href="#cb15-12" tabindex="-1"></a>orTabAdj2<span class="sc">$</span>orMean <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">exp</span>(orTabAdj2<span class="sc">$</span>logorMean), <span class="dv">2</span>)</span>
+<span id="cb15-13"><a href="#cb15-13" tabindex="-1"></a>orTabAdj2<span class="sc">$</span>orCILB <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">exp</span>(orTabAdj2<span class="sc">$</span>logorCILB), <span class="dv">2</span>)</span>
+<span id="cb15-14"><a href="#cb15-14" tabindex="-1"></a>orTabAdj2<span class="sc">$</span>orCIUB <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">exp</span>(orTabAdj2<span class="sc">$</span>logorCIUB), <span class="dv">2</span>)</span>
+<span id="cb15-15"><a href="#cb15-15" tabindex="-1"></a>orTabAdj2<span class="sc">$</span>Variable <span class="ot">&lt;-</span> <span class="fu">substr</span>(orTabAdj2<span class="sc">$</span>level, <span class="dv">1</span>, <span class="fu">nchar</span>(orTabAdj2<span class="sc">$</span>level)<span class="sc">-</span><span class="dv">1</span>)</span>
+<span id="cb15-16"><a href="#cb15-16" tabindex="-1"></a>orTabAdj2<span class="sc">$</span>Value <span class="ot">&lt;-</span> <span class="fu">substr</span>(orTabAdj2<span class="sc">$</span>level, <span class="fu">nchar</span>(orTabAdj2<span class="sc">$</span>level), <span class="fu">nchar</span>(orTabAdj2<span class="sc">$</span>level))</span>
+<span id="cb15-17"><a href="#cb15-17" tabindex="-1"></a>orTabAdjPrint2 <span class="ot">&lt;-</span> orTabAdj2[, <span class="fu">c</span>(<span class="st">&quot;Variable&quot;</span>, <span class="st">&quot;Value&quot;</span>, <span class="st">&quot;orMean&quot;</span>, <span class="st">&quot;orCILB&quot;</span>, <span class="st">&quot;orCIUB&quot;</span>)]</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Variable</th>
+<th align="left">Value</th>
+<th align="right">orMean</th>
+<th align="right">orCILB</th>
+<th align="right">orCIUB</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Z2</td>
+<td align="left">1</td>
+<td align="right">1.71</td>
+<td align="right">0.81</td>
+<td align="right">3.62</td>
+</tr>
+<tr class="even">
+<td align="left">Z4</td>
+<td align="left">2</td>
+<td align="right">0.61</td>
+<td align="right">0.30</td>
+<td align="right">1.25</td>
+</tr>
+<tr class="odd">
+<td align="left">Z4</td>
+<td align="left">3</td>
+<td align="right">0.10</td>
+<td align="right">0.00</td>
+<td align="right">10.48</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat2</td>
+<td align="left">2</td>
+<td align="right">0.70</td>
+<td align="right">0.28</td>
+<td align="right">1.75</td>
+</tr>
+<tr class="odd">
+<td align="left">timeCat2</td>
+<td align="left">3</td>
+<td align="right">0.52</td>
+<td align="right">0.15</td>
+<td align="right">1.81</td>
+</tr>
+<tr class="even">
+<td align="left">timeCat2</td>
+<td align="left">4</td>
+<td align="right">0.18</td>
+<td align="right">0.00</td>
+<td align="right">35.18</td>
+</tr>
+<tr class="odd">
+<td align="left">timeCat2</td>
+<td align="left">5</td>
+<td align="right">0.11</td>
+<td align="right">0.03</td>
+<td align="right">0.39</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>In this tutorial, we have illustrated how to use the nbTransmission
+package to model adjusted odds ratios describing the association between
+covariates and a variable representing transmission.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
